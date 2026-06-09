@@ -41,8 +41,10 @@ inet_pton(AF_INET, serverIPAddress.c_str(), &(serverAddress.sin_addr));
 
     std::cout << "Successfully connected to server" << std::endl;
 
-    std::string message = "Hello there!";
-    int bytesSent = send(serverSocket, message.c_str(), message.length(), 0);
+    std::string message;
+    std::getline(std::cin, message);
+
+    int bytesSent = send(serverSocket, message.c_str(), static_cast<int>(message.size()), 0);
 
     if (bytesSent == SOCKET_ERROR){
         std::cout << "Message sent failed" << std::endl; 

@@ -1,8 +1,8 @@
 [
 {
-  "directory": "D:/Projects/C++/union-app/client/build",
-  "command": "C:\\msys64\\ucrt64\\bin\\g++.exe   -g -std=gnu++17 -o CMakeFiles\\union_client.dir\\src\\main.cpp.obj -c D:\\Projects\\C++\\union-app\\client\\src\\main.cpp",
-  "file": "D:/Projects/C++/union-app/client/src/main.cpp",
+  "directory": "C:/pycs/union-chat-app/client/build",
+  "command": "C:\\msys64\\ucrt64\\bin\\g++.exe   -g -std=gnu++17 -o CMakeFiles\\union_client.dir\\src\\main.cpp.obj -c C:\\pycs\\union-chat-app\\client\\src\\main.cpp",
+  "file": "C:/pycs/union-chat-app/client/src/main.cpp",
   "output": "CMakeFiles/union_client.dir/src/main.cpp.obj"
 }
 ]

@@ -1,5 +1,5 @@
 CMakeFiles/union_client.dir/src/main.cpp.obj: \
- D:\Projects\C++\union-app\client\src\main.cpp \
+ C:\pycs\union-chat-app\client\src\main.cpp \
  C:/msys64/ucrt64/include/c++/15.2.0/iostream \
  C:/msys64/ucrt64/include/c++/15.2.0/bits/requires_hosted.h \
  C:/msys64/ucrt64/include/c++/15.2.0/x86_64-w64-mingw32/bits/c++config.h \

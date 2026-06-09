@@ -7,6 +7,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 add_executable(union_server
     src/main.cpp
+    src/Server.cpp
 )
 
 target_link_libraries(union_server
