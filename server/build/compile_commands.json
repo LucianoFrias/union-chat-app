@@ -1,0 +1,8 @@
+[
+{
+  "directory": "D:/Projects/C++/union-app/server/build",
+  "command": "C:\\msys64\\ucrt64\\bin\\g++.exe   -g -std=gnu++17 -o CMakeFiles\\union_server.dir\\src\\main.cpp.obj -c D:\\Projects\\C++\\union-app\\server\\src\\main.cpp",
+  "file": "D:/Projects/C++/union-app/server/src/main.cpp",
+  "output": "CMakeFiles/union_server.dir/src/main.cpp.obj"
+}
+]
