@@ -1,5 +1,5 @@
 #include <iostream>
-#include <winsock.h>
+#include <winsock2.h>
 #include <ws2tcpip.h>
 #include <tchar.h>
 #include <thread>
@@ -40,9 +40,6 @@ inet_pton(AF_INET, serverIPAddress.c_str(), &(serverAddress.sin_addr));
     }
 
     std::cout << "Successfully connected to server" << std::endl;
-
-    std::thread senderThread = 
-
 
     std::string message = "Hello there!";
     int bytesSent = send(serverSocket, message.c_str(), message.length(), 0);
