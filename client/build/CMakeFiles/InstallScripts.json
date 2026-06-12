@@ -1,7 +1,7 @@
 {
 	"InstallScripts" : 
 	[
-		"C:/pycs/union-chat-app/client/build/cmake_install.cmake"
+		"D:/Projects/C++/union-app/client/build/cmake_install.cmake"
 	],
 	"Parallel" : false
 }

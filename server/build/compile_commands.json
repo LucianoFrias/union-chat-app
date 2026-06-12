@@ -1,14 +1,14 @@
 [
 {
-  "directory": "C:/pycs/union-chat-app/server/build",
-  "command": "C:\\msys64\\ucrt64\\bin\\g++.exe   -g -std=gnu++17 -o CMakeFiles\\union_server.dir\\src\\main.cpp.obj -c C:\\pycs\\union-chat-app\\server\\src\\main.cpp",
-  "file": "C:/pycs/union-chat-app/server/src/main.cpp",
+  "directory": "D:/Projects/C++/union-app/server/build",
+  "command": "C:\\msys64\\ucrt64\\bin\\g++.exe   -g -std=gnu++17 -o CMakeFiles\\union_server.dir\\src\\main.cpp.obj -c D:\\Projects\\C++\\union-app\\server\\src\\main.cpp",
+  "file": "D:/Projects/C++/union-app/server/src/main.cpp",
   "output": "CMakeFiles/union_server.dir/src/main.cpp.obj"
 },
 {
-  "directory": "C:/pycs/union-chat-app/server/build",
-  "command": "C:\\msys64\\ucrt64\\bin\\g++.exe   -g -std=gnu++17 -o CMakeFiles\\union_server.dir\\src\\Server.cpp.obj -c C:\\pycs\\union-chat-app\\server\\src\\Server.cpp",
-  "file": "C:/pycs/union-chat-app/server/src/Server.cpp",
+  "directory": "D:/Projects/C++/union-app/server/build",
+  "command": "C:\\msys64\\ucrt64\\bin\\g++.exe   -g -std=gnu++17 -o CMakeFiles\\union_server.dir\\src\\Server.cpp.obj -c D:\\Projects\\C++\\union-app\\server\\src\\Server.cpp",
+  "file": "D:/Projects/C++/union-app/server/src/Server.cpp",
   "output": "CMakeFiles/union_server.dir/src/Server.cpp.obj"
 }
 ]

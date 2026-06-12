@@ -1,5 +1,5 @@
 CMakeFiles/union_client.dir/src/main.cpp.obj: \
- C:\pycs\union-chat-app\client\src\main.cpp \
+ D:\Projects\C++\union-app\client\src\main.cpp \
  C:/msys64/ucrt64/include/c++/15.2.0/iostream \
  C:/msys64/ucrt64/include/c++/15.2.0/bits/requires_hosted.h \
  C:/msys64/ucrt64/include/c++/15.2.0/x86_64-w64-mingw32/bits/c++config.h \
@@ -378,4 +378,5 @@ CMakeFiles/union_client.dir/src/main.cpp.obj: \
  C:/msys64/ucrt64/include/stdint.h \
  C:/msys64/ucrt64/include/c++/15.2.0/limits \
  C:/msys64/ucrt64/include/c++/15.2.0/ctime \
- C:/msys64/ucrt64/include/c++/15.2.0/bits/parse_numbers.h
+ C:/msys64/ucrt64/include/c++/15.2.0/bits/parse_numbers.h \
+ D:/Projects/C++/union-app/client/include/Client.h

@@ -9,7 +9,9 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # Compiles the executable "MyExecutable" from the source file "main.cpp"
-add_executable(union_client src/main.cpp)
+add_executable(union_client src/main.cpp
+    include/Client.h
+    src/Client.cpp)
 
 
 # Link the Winsock2 library ONLY on Windows systems

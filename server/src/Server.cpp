@@ -57,7 +57,7 @@ void Server::run(){
 
         std::cout << "Client connected!\n";
 
-        //HandleClient(clientSocket);
+        handleClient(clientSocket);
 
         closesocket(clientSocket);
 
@@ -126,7 +126,7 @@ bool Server::bindAndListen()
     return true;
 }
 
-SOCKET handleClient(SOCKET clientSocket)
+SOCKET Server::handleClient(SOCKET clientSocket)
 {
     char buffer[4096];
 
@@ -152,21 +152,24 @@ SOCKET handleClient(SOCKET clientSocket)
             << clientMessage
             << '\n';
 
-        std::cout << "Server: ";
 
-        std::string reply;
-        std::getline(std::cin, reply);
+        // This code will be used for replying to other clients. The server should not reply. 
 
-        int bytesSent =
-            send(clientSocket,
-                 reply.c_str(),
-                 static_cast<int>(reply.size()),
-                 0);
+        // std::cout << "Server: ";
 
-        if (bytesSent == SOCKET_ERROR)
-        {
-            break;
-        }
+        // std::string reply;
+        // std::getline(std::cin, reply);
+
+        // int bytesSent =
+        //     send(clientSocket,
+        //          reply.c_str(),
+        //          static_cast<int>(reply.size()),
+        //          0);
+
+        // if (bytesSent == SOCKET_ERROR)
+        // {
+        //     break;
+        // }
     }
 }
 

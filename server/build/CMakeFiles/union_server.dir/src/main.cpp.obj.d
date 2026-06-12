@@ -1,6 +1,6 @@
 CMakeFiles/union_server.dir/src/main.cpp.obj: \
- C:\pycs\union-chat-app\server\src\main.cpp \
- C:/pycs/union-chat-app/server/include/Server.h \
+ D:\Projects\C++\union-app\server\src\main.cpp \
+ D:/Projects/C++/union-app/server/include/Server.h \
  C:/msys64/ucrt64/include/winsock2.h \
  C:/msys64/ucrt64/include/_mingw_unicode.h \
  C:/msys64/ucrt64/include/windows.h C:/msys64/ucrt64/include/_mingw.h \

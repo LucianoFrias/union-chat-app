@@ -8,8 +8,8 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "C:/pycs/union-chat-app/server/src/Server.cpp" "CMakeFiles/union_server.dir/src/Server.cpp.obj" "gcc" "CMakeFiles/union_server.dir/src/Server.cpp.obj.d"
-  "C:/pycs/union-chat-app/server/src/main.cpp" "CMakeFiles/union_server.dir/src/main.cpp.obj" "gcc" "CMakeFiles/union_server.dir/src/main.cpp.obj.d"
+  "D:/Projects/C++/union-app/server/src/Server.cpp" "CMakeFiles/union_server.dir/src/Server.cpp.obj" "gcc" "CMakeFiles/union_server.dir/src/Server.cpp.obj.d"
+  "D:/Projects/C++/union-app/server/src/main.cpp" "CMakeFiles/union_server.dir/src/main.cpp.obj" "gcc" "CMakeFiles/union_server.dir/src/main.cpp.obj.d"
   )
 
 # Targets to which this target links which contain Fortran sources.

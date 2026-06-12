@@ -1,4 +1,6 @@
 file(REMOVE_RECURSE
+  "CMakeFiles/union_client.dir/src/Client.cpp.obj"
+  "CMakeFiles/union_client.dir/src/Client.cpp.obj.d"
   "CMakeFiles/union_client.dir/src/main.cpp.obj"
   "CMakeFiles/union_client.dir/src/main.cpp.obj.d"
   "libunion_client.dll.a"
