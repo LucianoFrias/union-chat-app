@@ -1,5 +1,6 @@
 #include "../include/Server.h"
 #include <iostream>
+#include <algorithm>
 
 // Constructor and destructor
 
@@ -42,7 +43,7 @@ bool Server::start() {
 void Server::run(){
     while (true)
     {
-        std::cout << "Waiting for client...\n";
+        showRemainingNumberOfClients();
 
         SOCKET clientSocket =
             accept(m_listenSocket,
@@ -55,13 +56,21 @@ void Server::run(){
             continue;
         }
 
+        {
+            std::lock_guard<std::mutex> lock(clientsMutex);
+
+            clients.push_back(clientSocket);
+        }
+        
+
         std::cout << "Client connected!\n";
+        std::thread clientThread(
+        &Server::handleClient,
+        this,
+        clientSocket
+    );
 
-        handleClient(clientSocket);
-
-        closesocket(clientSocket);
-
-        std::cout << "Client disconnected!\n";
+        clientThread.detach();
     }
 }
 
@@ -126,7 +135,7 @@ bool Server::bindAndListen()
     return true;
 }
 
-SOCKET Server::handleClient(SOCKET clientSocket)
+void Server::handleClient(SOCKET clientSocket)
 {
     char buffer[4096];
 
@@ -152,24 +161,50 @@ SOCKET Server::handleClient(SOCKET clientSocket)
             << clientMessage
             << '\n';
 
+            broadcast(
+            clientSocket,
+            clientMessage
+        );
+    }
 
-        // This code will be used for replying to other clients. The server should not reply. 
+    removeClient(clientSocket);
+    closesocket(clientSocket);
 
-        // std::cout << "Server: ";
+    std::cout << "Client disconnected!\n";
+    showRemainingNumberOfClients();
+}
 
-        // std::string reply;
-        // std::getline(std::cin, reply);
+void Server::broadcast(SOCKET sender, std::string message){
 
-        // int bytesSent =
-        //     send(clientSocket,
-        //          reply.c_str(),
-        //          static_cast<int>(reply.size()),
-        //          0);
+    std::lock_guard<std::mutex> lock(clientsMutex);
 
-        // if (bytesSent == SOCKET_ERROR)
-        // {
-        //     break;
-        // }
+    for(auto client : clients)
+    {
+        if(client != sender)
+        {
+            send(
+                client,
+                message.c_str(),
+                message.size(),
+                0
+            );
+        }
     }
 }
 
+void Server::showRemainingNumberOfClients(){
+    std::cout << "Number of clients connected: " << clients.size() << std::endl;
+}
+
+void Server::removeClient(SOCKET clientSocket){
+    std::lock_guard<std::mutex> lock(clientsMutex);
+
+    clients.erase(
+        std::remove(
+            clients.begin(),
+            clients.end(),
+            clientSocket
+        ),
+        clients.end()
+    );
+}

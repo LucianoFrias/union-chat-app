@@ -1,6 +1,7 @@
 #include "../include/Client.h"
 #include <tchar.h>
 #include <iostream>
+#include <algorithm>
 
 // Constructor and destructor
 
@@ -43,23 +44,38 @@ bool Client::start() {
 
 void Client::run(){
 
-    while (true){
-    std::string message;
-    std::cout << "My message: ";
-    std::getline(std::cin, message);
+    std::thread receiver(
+        &Client::handleServer,
+        this,
+        m_serverSocket
+    );
 
-    int bytesSent = send(m_serverSocket, message.c_str(), static_cast<int>(message.size()), 0);
 
-    if (bytesSent == SOCKET_ERROR){
-        std::cout << "Message sent failed" << std::endl; 
-        return;
+    while(true)
+    {
+
+        std::string message;
+
+        std::cout << "Message: ";
+
+        getline(
+            std::cin,
+            message
+        );
+
+
+        send(
+            m_serverSocket,
+            message.c_str(),
+            message.size(),
+            0
+        );
+
+        std::cout << "Me: " << message << std::endl; 
     }
 
-        std::string myMessage = message;
 
-        std::cout << "Me: " << myMessage << std::endl;
-
-    }
+    receiver.join();
     
 }
 
@@ -125,45 +141,39 @@ bool Client::bindAndConnect()
 
 SOCKET Client::handleServer(SOCKET clientSocket)
 {
-    char buffer[4096];
+   char buffer[4096];
 
-    while (true)
+
+    while(true)
     {
-        int bytesReceived =
-            recv(clientSocket,
-                 buffer,
-                 sizeof(buffer),
-                 0);
 
-        if (bytesReceived <= 0)
+        int bytesReceived =
+            recv(
+                clientSocket,
+                buffer,
+                sizeof(buffer),
+                0
+            );
+
+
+        if(bytesReceived <= 0)
         {
             break;
         }
 
-        std::string clientMessage(
+
+        std::string message(
             buffer,
-            bytesReceived);
+            bytesReceived
+        );
+
 
         std::cout
-            << "\nClient: "
-            << clientMessage
-            << '\n';
-
-        std::cout << "Clien: ";
-
-        std::string reply;
-        std::getline(std::cin, reply);
-
-        int bytesSent =
-            send(clientSocket,
-                 reply.c_str(),
-                 static_cast<int>(reply.size()),
-                 0);
-
-        if (bytesSent == SOCKET_ERROR)
-        {
-            break;
-        }
+            << "\nOther: "
+            << message
+            << "\nMessage: ";
     }
-}
 
+
+    return clientSocket;
+}

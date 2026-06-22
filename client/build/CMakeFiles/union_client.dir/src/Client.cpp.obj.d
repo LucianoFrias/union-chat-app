@@ -366,5 +366,26 @@ CMakeFiles/union_client.dir/src/Client.cpp.obj: \
  C:/msys64/ucrt64/include/qos.h C:/msys64/ucrt64/include/ws2tcpip.h \
  C:/msys64/ucrt64/include/ws2ipdef.h C:/msys64/ucrt64/include/in6addr.h \
  C:/msys64/ucrt64/include/psdk_inc/_ip_mreq1.h \
- C:/msys64/ucrt64/include/mstcpip.h C:/msys64/ucrt64/include/tchar.h \
- C:/msys64/ucrt64/include/sec_api/tchar_s.h
+ C:/msys64/ucrt64/include/mstcpip.h \
+ C:/msys64/ucrt64/include/c++/15.2.0/thread \
+ C:/msys64/ucrt64/include/c++/15.2.0/bits/std_thread.h \
+ C:/msys64/ucrt64/include/c++/15.2.0/bits/unique_ptr.h \
+ C:/msys64/ucrt64/include/c++/15.2.0/bits/this_thread_sleep.h \
+ C:/msys64/ucrt64/include/c++/15.2.0/bits/chrono.h \
+ C:/msys64/ucrt64/include/c++/15.2.0/ratio \
+ C:/msys64/ucrt64/include/c++/15.2.0/cstdint \
+ C:/msys64/ucrt64/lib/gcc/x86_64-w64-mingw32/15.2.0/include/stdint.h \
+ C:/msys64/ucrt64/include/stdint.h \
+ C:/msys64/ucrt64/include/c++/15.2.0/limits \
+ C:/msys64/ucrt64/include/c++/15.2.0/ctime \
+ C:/msys64/ucrt64/include/c++/15.2.0/bits/parse_numbers.h \
+ C:/msys64/ucrt64/include/tchar.h \
+ C:/msys64/ucrt64/include/sec_api/tchar_s.h \
+ C:/msys64/ucrt64/include/c++/15.2.0/algorithm \
+ C:/msys64/ucrt64/include/c++/15.2.0/bits/stl_algo.h \
+ C:/msys64/ucrt64/include/c++/15.2.0/bits/algorithmfwd.h \
+ C:/msys64/ucrt64/include/c++/15.2.0/bits/stl_heap.h \
+ C:/msys64/ucrt64/include/c++/15.2.0/bits/uniform_int_dist.h \
+ C:/msys64/ucrt64/include/c++/15.2.0/bits/stl_tempbuf.h \
+ C:/msys64/ucrt64/include/c++/15.2.0/pstl/glue_algorithm_defs.h \
+ C:/msys64/ucrt64/include/c++/15.2.0/pstl/execution_defs.h

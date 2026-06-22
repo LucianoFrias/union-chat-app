@@ -3,6 +3,8 @@
 #include <iostream>
 #include <winsock2.h>
 #include <ws2tcpip.h>
+#include <thread>
+
 
 class Client
 {
@@ -17,6 +19,7 @@ private:
     bool initializeWinsock();
     SOCKET createServerSocket();
     bool bindAndConnect();
+    void receiveMessages();
     SOCKET handleServer(SOCKET serverSocket);
 
 
