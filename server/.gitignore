@@ -1,0 +1,74 @@
+# ==============================================================================
+# CMake Build Artifacts (Keep repository free of temporary build trees)
+# ==============================================================================
+CMakeCache.txt
+CMakeFiles/
+CMakeScripts/
+Testing/
+Makefile
+cmake_install.cmake
+install_manifest.txt
+compile_commands.json
+CTestTestfile.cmake
+_deps/
+
+# Common build output directory names (Out-of-source builds)
+[Bb]uild*/
+[Oo]ut/
+[Bb]in/
+
+# ==============================================================================
+# C++ Compiled Artifacts (Objects, Libraries, Executables)
+# ==============================================================================
+*.o
+*.obj
+*.a
+*.lib
+*.so
+*.so.*
+*.dylib
+*.dll
+*.exe
+*.out
+*.app
+*.dwo
+
+# ==============================================================================
+# IDEs and Text Editors
+# ==============================================================================
+# CLion & JetBrains
+.idea/
+cmake-build-*/
+
+# Visual Studio Code
+.vscode/
+!.vscode/extensions.json
+!.vscode/settings.json
+
+# Visual Studio (MSVC)
+.vs/
+*.sln
+*.vcxproj
+*.vcxproj.user
+*.vcxproj.filters
+*.suo
+
+# Xcode
+*.xcodeproj/
+*.xcworkspace/
+
+# ==============================================================================
+# Package Managers and Environments
+# ==============================================================================
+# vcpkg (if installed locally inside the project)
+vcpkg_installed/
+
+# Conan
+conaninfo.txt
+conanbuildinfo.txt
+
+# ==============================================================================
+# OS Generated Files
+# ==============================================================================
+.DS_Store
+Thumbs.db

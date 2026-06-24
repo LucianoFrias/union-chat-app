@@ -17,9 +17,9 @@ public:
 
 private:
     bool initializeWinsock();
-    SOCKET createListeningSocket();
+    bool createListeningSocket();
     bool bindAndListen();
-    void broadcast(SOCKET sender, std::string message);
+    void broadcast(SOCKET sender, const std::string& message);
     void handleClient(SOCKET clientSocket);
     void showRemainingNumberOfClients();
     void removeClient(SOCKET clientSocket);

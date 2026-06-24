@@ -1,6 +1,6 @@
 CMakeFiles/union_client.dir/src/Client.cpp.obj: \
- D:\Projects\C++\union-app\client\src\Client.cpp \
- D:/Projects/C++/union-app/client/include/Client.h \
+ C:\pycs\union-chat-app\client\src\Client.cpp \
+ C:/pycs/union-chat-app/client/include/Client.h \
  C:/msys64/ucrt64/include/c++/15.2.0/iostream \
  C:/msys64/ucrt64/include/c++/15.2.0/bits/requires_hosted.h \
  C:/msys64/ucrt64/include/c++/15.2.0/x86_64-w64-mingw32/bits/c++config.h \
@@ -379,6 +379,19 @@ CMakeFiles/union_client.dir/src/Client.cpp.obj: \
  C:/msys64/ucrt64/include/c++/15.2.0/limits \
  C:/msys64/ucrt64/include/c++/15.2.0/ctime \
  C:/msys64/ucrt64/include/c++/15.2.0/bits/parse_numbers.h \
+ C:/pycs/union-chat-app/client/src/Logger.cpp \
+ C:/msys64/ucrt64/include/c++/15.2.0/chrono \
+ C:/msys64/ucrt64/include/c++/15.2.0/iomanip \
+ C:/msys64/ucrt64/include/c++/15.2.0/locale \
+ C:/msys64/ucrt64/include/c++/15.2.0/bits/locale_facets_nonio.h \
+ C:/msys64/ucrt64/include/c++/15.2.0/x86_64-w64-mingw32/bits/time_members.h \
+ C:/msys64/ucrt64/include/c++/15.2.0/x86_64-w64-mingw32/bits/messages_members.h \
+ C:/msys64/ucrt64/include/c++/15.2.0/bits/codecvt.h \
+ C:/msys64/ucrt64/include/c++/15.2.0/bits/locale_facets_nonio.tcc \
+ C:/msys64/ucrt64/include/c++/15.2.0/bits/locale_conv.h \
+ C:/msys64/ucrt64/include/c++/15.2.0/bits/quoted_string.h \
+ C:/msys64/ucrt64/include/c++/15.2.0/sstream \
+ C:/msys64/ucrt64/include/c++/15.2.0/bits/sstream.tcc \
  C:/msys64/ucrt64/include/tchar.h \
  C:/msys64/ucrt64/include/sec_api/tchar_s.h \
  C:/msys64/ucrt64/include/c++/15.2.0/algorithm \

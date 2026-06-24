@@ -1,4 +1,5 @@
 #include "../include/Client.h"
+#include "./Logger.cpp"
 #include <tchar.h>
 #include <iostream>
 #include <algorithm>
@@ -35,10 +36,7 @@ bool Client::start() {
     if (!bindAndConnect())
         return false;
 
-    std::cout << "Client listening on server port "
-              << m_serverPort
-              << '\n';
-
+    Logger::info("Client listening on server port " + std::to_string(m_serverPort));
     return true;
 }
 
@@ -91,7 +89,7 @@ bool Client::initializeWinsock()
 
     if (result != 0)
     {
-        std::cerr << "WSAStartup failed!\n";
+        Logger::error("WSAStartup failed!");
         return false;
     }
 
@@ -107,7 +105,7 @@ SOCKET Client::createServerSocket()
 
     if (m_serverSocket == INVALID_SOCKET)
     {
-        std::cerr << "Socket creation failed!\n";
+        Logger::error("Socket creation failed!");
         return false;
     }
 
@@ -126,16 +124,15 @@ bool Client::bindAndConnect()
 
     
     if (connect(m_serverSocket, reinterpret_cast<sockaddr*>(&serverAddress), sizeof(serverAddress)) == SOCKET_ERROR){
-        std::cout << "Not able to connect to server" << std::endl;
+        Logger::error("Not able to connect to server");
         closesocket(m_serverSocket);
         WSACleanup();
 
         return 0;
     }
 
-    std::cout << "Successfully connected to server" << std::endl;
-
-
+    Logger::info("Succesfully connected to server");
+    
     return true;
 }
 

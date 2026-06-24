@@ -1,4 +1,5 @@
 #include "../include/Server.h"
+#include "./Logger.cpp"
 #include <iostream>
 #include <algorithm>
 
@@ -33,9 +34,8 @@ bool Server::start() {
     if (!bindAndListen())
         return false;
 
-    std::cout << "Server listening on port "
-              << m_port
-              << '\n';
+    
+    Logger::info("Server listening on port " + std::to_string(m_port));
 
     return true;
 }
@@ -52,7 +52,7 @@ void Server::run(){
 
         if (clientSocket == INVALID_SOCKET)
         {
-            std::cerr << "Accept failed!\n";
+            Logger::error("Accept failed!");
             continue;
         }
 
@@ -63,7 +63,8 @@ void Server::run(){
         }
         
 
-        std::cout << "Client connected!\n";
+        Logger::info("Client connected!");
+
         std::thread clientThread(
         &Server::handleClient,
         this,
@@ -86,14 +87,14 @@ bool Server::initializeWinsock()
 
     if (result != 0)
     {
-        std::cerr << "WSAStartup failed!\n";
+        Logger::error("WSAStartup failed!");
         return false;
     }
 
     return true;
 }
 
-SOCKET Server::createListeningSocket()
+bool Server::createListeningSocket()
 {
     m_listenSocket = socket(
         AF_INET,
@@ -102,7 +103,7 @@ SOCKET Server::createListeningSocket()
 
     if (m_listenSocket == INVALID_SOCKET)
     {
-        std::cerr << "Socket creation failed!\n";
+        Logger::error("Socket creation failed");
         return false;
     }
 
@@ -117,18 +118,16 @@ bool Server::bindAndListen()
     addr.sin_port = htons(m_port);
     addr.sin_addr.s_addr = INADDR_ANY;
 
-    if (bind(
-            m_listenSocket,
-            reinterpret_cast<sockaddr*>(&addr),
-            sizeof(addr)) == SOCKET_ERROR)
+    if (bind(m_listenSocket, reinterpret_cast<sockaddr*>(&addr), 
+    sizeof(addr)) == SOCKET_ERROR)
     {
-        std::cerr << "Bind failed!\n";
+        Logger::error("Bind failed. Error: " + std::to_string(WSAGetLastError()));
         return false;
     }
 
     if (listen(m_listenSocket, SOMAXCONN) == SOCKET_ERROR)
     {
-        std::cerr << "Listen failed!\n";
+        Logger::error("Listen failed!");
         return false;
     }
 
@@ -170,11 +169,11 @@ void Server::handleClient(SOCKET clientSocket)
     removeClient(clientSocket);
     closesocket(clientSocket);
 
-    std::cout << "Client disconnected!\n";
+    Logger::info("Client disconnected!");
     showRemainingNumberOfClients();
 }
 
-void Server::broadcast(SOCKET sender, std::string message){
+void Server::broadcast(SOCKET sender, const std::string& message){
 
     std::lock_guard<std::mutex> lock(clientsMutex);
 
@@ -182,18 +181,26 @@ void Server::broadcast(SOCKET sender, std::string message){
     {
         if(client != sender)
         {
-            send(
+            int result = send(
                 client,
                 message.c_str(),
                 message.size(),
                 0
-            );
+            );  
+
+            if (result == SOCKET_ERROR){
+                Logger::error("Broadcast send failed!");
+                return;
+            }
+
         }
     }
 }
 
 void Server::showRemainingNumberOfClients(){
-    std::cout << "Number of clients connected: " << clients.size() << std::endl;
+    std::lock_guard<std::mutex> lock(clientsMutex);
+    
+    Logger::info("Number of clients connected: " + std::to_string(clients.size());
 }
 
 void Server::removeClient(SOCKET clientSocket){
