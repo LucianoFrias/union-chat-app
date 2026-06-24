@@ -13,6 +13,7 @@ CTestTestfile.cmake
 _deps/
 
 # Common build output directory names (Out-of-source builds)
+build/
 [Bb]uild*/
 [Oo]ut/
 [Bb]in/

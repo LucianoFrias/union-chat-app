@@ -1,3 +1,0 @@
-C:/pycs/union-chat-app/client/build/CMakeFiles/union_client.dir
-C:/pycs/union-chat-app/client/build/CMakeFiles/edit_cache.dir
-C:/pycs/union-chat-app/client/build/CMakeFiles/rebuild_cache.dir
