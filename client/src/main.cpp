@@ -7,6 +7,8 @@
 
 #pragma comment (lib, "ws2_32.lib")
 
+using namespace Union::Client;
+
 
 int main(){
     Client client(12345, "127.0.0.1");

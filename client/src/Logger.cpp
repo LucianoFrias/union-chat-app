@@ -5,6 +5,9 @@
 #include <iomanip>
 #include <sstream>
 
+namespace Union::Logging {
+
+
 class Logger
 {
 private:
@@ -44,3 +47,5 @@ public:
             << '\n';
     }
 };
+
+}

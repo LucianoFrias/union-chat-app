@@ -1,5 +1,7 @@
 #include "../include/Server.h"
 
+using namespace Union::Server;
+
 int main(){
 
     Server server(12345);

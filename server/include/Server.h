@@ -6,6 +6,10 @@
 #include <mutex>
 #include <vector>
 
+
+namespace Union::Server { 
+
+
 class Server
 {
 public:
@@ -23,6 +27,7 @@ private:
     void handleClient(SOCKET clientSocket);
     void showRemainingNumberOfClients();
     void removeClient(SOCKET clientSocket);
+    void shutdownServer();
 
 
 private:
@@ -31,3 +36,5 @@ private:
     int m_port;
     SOCKET m_listenSocket;
 };
+
+}

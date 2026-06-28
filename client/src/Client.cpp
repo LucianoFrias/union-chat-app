@@ -4,12 +4,18 @@
 #include <iostream>
 #include <algorithm>
 
+using namespace Union::Logging;
+
 // Constructor and destructor
+
+namespace Union::Client {
+
 
 Client::Client(int port, std::string ipAddress)
     : m_serverPort(port),
     m_serverIPAddress(ipAddress),
-      m_serverSocket(INVALID_SOCKET)
+      m_serverSocket(INVALID_SOCKET),
+      connected(false)
 {
 }
 
@@ -48,8 +54,9 @@ void Client::run(){
         m_serverSocket
     );
 
+    
 
-    while(true)
+    while(connected)
     {
 
         std::string message;
@@ -60,6 +67,10 @@ void Client::run(){
             std::cin,
             message
         );
+
+        if (!connected) {
+            break;
+        }
 
 
         send(
@@ -132,16 +143,17 @@ bool Client::bindAndConnect()
     }
 
     Logger::info("Succesfully connected to server");
+    connected = true;
     
     return true;
 }
 
-SOCKET Client::handleServer(SOCKET clientSocket)
+void Client::handleServer(SOCKET clientSocket)
 {
    char buffer[4096];
 
 
-    while(true)
+    while(connected)
     {
 
         int bytesReceived =
@@ -171,6 +183,10 @@ SOCKET Client::handleServer(SOCKET clientSocket)
             << "\nMessage: ";
     }
 
+    Logger::error("Disconnected from server");
 
-    return clientSocket;
+    connected = false;
 }
+
+}
+

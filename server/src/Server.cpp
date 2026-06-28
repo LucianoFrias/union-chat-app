@@ -5,6 +5,11 @@
 
 // Constructor and destructor
 
+using namespace Union::Logging;
+
+namespace Union::Server {
+    
+
 Server::Server(int port)
     : m_port(port),
       m_listenSocket(INVALID_SOCKET)
@@ -13,12 +18,7 @@ Server::Server(int port)
 
 Server::~Server()
 {
-    if (m_listenSocket != INVALID_SOCKET)
-    {
-        closesocket(m_listenSocket);
-    }
-
-    WSACleanup();
+    shutdownServer();
 }
 
 
@@ -200,10 +200,10 @@ void Server::broadcast(SOCKET sender, const std::string& message){
 void Server::showRemainingNumberOfClients(){
     std::lock_guard<std::mutex> lock(clientsMutex);
     
-    Logger::info("Number of clients connected: " + std::to_string(clients.size());
+    Logger::info("Number of clients connected: " + std::to_string(clients.size()));
 }
 
-void Server::removeClient(SOCKET clientSocket){
+void Server::removeClient(SOCKET clientSocket){ 
     std::lock_guard<std::mutex> lock(clientsMutex);
 
     clients.erase(
@@ -214,4 +214,32 @@ void Server::removeClient(SOCKET clientSocket){
         ),
         clients.end()
     );
+}
+
+void Server::shutdownServer(){
+    Logger::info("Shutting down server...");
+
+
+    std::lock_guard<std::mutex> lock(clientsMutex);
+
+
+    for(auto client : clients)
+    {
+        closesocket(client);
+    }
+
+
+    clients.clear();
+
+
+    if(m_listenSocket != INVALID_SOCKET)
+    {
+        closesocket(m_listenSocket);
+        m_listenSocket = INVALID_SOCKET;
+    }
+
+
+    WSACleanup();
+}
+
 }

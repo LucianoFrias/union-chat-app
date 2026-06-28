@@ -4,6 +4,9 @@
 #include <winsock2.h>
 #include <ws2tcpip.h>
 #include <thread>
+#include <atomic>
+
+namespace Union::Client {
 
 
 class Client
@@ -20,11 +23,15 @@ private:
     SOCKET createServerSocket();
     bool bindAndConnect();
     void receiveMessages();
-    SOCKET handleServer(SOCKET serverSocket);
+    void handleServer(SOCKET serverSocket);
 
 
 private:
     int m_serverPort;
     std::string m_serverIPAddress;
     SOCKET m_serverSocket;
+
+    std::atomic<bool> connected;
 };
+
+}
