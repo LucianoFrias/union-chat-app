@@ -8,6 +8,7 @@ target_link_libraries(
     PRIVATE
         my_library
         GTest::gtest_main
+        ws2_32
 )
 
 include(GoogleTest)
