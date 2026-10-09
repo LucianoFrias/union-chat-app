@@ -20,18 +20,20 @@ public:
 
 private:
     bool initializeWinsock();
-    SOCKET createServerSocket();
-    bool bindAndConnect();
+    SOCKET createClientSocket();
+    bool connectToServer();
+    void disconnectFromServer();
+
     void receiveMessages();
-    void handleServer(SOCKET serverSocket);
+    void sendMessages();
 
 
 private:
     int m_serverPort;
     std::string m_serverIPAddress;
-    SOCKET m_serverSocket;
+    SOCKET m_clientSocket;
 
-    std::atomic<bool> connected;
+    std::atomic<bool> m_connected;
 };
 
 }

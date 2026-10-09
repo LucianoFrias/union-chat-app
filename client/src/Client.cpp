@@ -1,6 +1,5 @@
 #include "../include/Client.h"
 #include "./Logger.cpp"
-#include <tchar.h>
 #include <iostream>
 #include <algorithm>
 
@@ -14,16 +13,18 @@ namespace Union::Client {
 Client::Client(int port, std::string ipAddress)
     : m_serverPort(port),
     m_serverIPAddress(ipAddress),
-      m_serverSocket(INVALID_SOCKET),
-      connected(false)
+      m_clientSocket(INVALID_SOCKET),
+      m_connected(false)
 {
 }
 
 Client::~Client()
 {
-    if (m_serverSocket != INVALID_SOCKET)
+    if (m_clientSocket != INVALID_SOCKET)
     {
-        closesocket(m_serverSocket);
+        disconnectFromServer();
+        closesocket(m_clientSocket);
+
     }
 
     WSACleanup();
@@ -36,56 +37,31 @@ bool Client::start() {
     if (!initializeWinsock())
         return false;
 
-    if (!createServerSocket())
+    if (!createClientSocket())
         return false;
 
-    if (!bindAndConnect())
+    if (!connectToServer())
         return false;
 
-    Logger::info("Client listening on server port " + std::to_string(m_serverPort));
+    Logger::info("Client connecting to server port " + std::to_string(m_serverPort));
     return true;
 }
 
 void Client::run(){
 
     std::thread receiver(
-        &Client::handleServer,
-        this,
-        m_serverSocket
+        &Client::receiveMessages,
+        this
     );
 
-    
-
-    while(connected)
-    {
-
-        std::string message;
-
-        std::cout << "Message: ";
-
-        getline(
-            std::cin,
-            message
-        );
-
-        if (!connected) {
-            break;
-        }
+    std::thread sender(
+        &Client::sendMessages,
+        this
+    );
 
 
-        send(
-            m_serverSocket,
-            message.c_str(),
-            message.size(),
-            0
-        );
-
-        std::cout << "Me: " << message << std::endl; 
-    }
-
-
+    sender.join();
     receiver.join();
-    
 }
 
 
@@ -107,14 +83,14 @@ bool Client::initializeWinsock()
     return true;
 }
 
-SOCKET Client::createServerSocket()
+SOCKET Client::createClientSocket()
 {
-    m_serverSocket = socket(
+    m_clientSocket = socket(
         AF_INET,
         SOCK_STREAM,
         IPPROTO_TCP);
 
-    if (m_serverSocket == INVALID_SOCKET)
+    if (m_clientSocket == INVALID_SOCKET)
     {
         Logger::error("Socket creation failed!");
         return false;
@@ -123,7 +99,7 @@ SOCKET Client::createServerSocket()
     return true;
 }
 
-bool Client::bindAndConnect()
+bool Client::connectToServer()
 {
     sockaddr_in serverAddress{};
 
@@ -134,31 +110,40 @@ bool Client::bindAndConnect()
     inet_pton(AF_INET, m_serverIPAddress.c_str(), &(serverAddress.sin_addr));
 
     
-    if (connect(m_serverSocket, reinterpret_cast<sockaddr*>(&serverAddress), sizeof(serverAddress)) == SOCKET_ERROR){
+    if (connect(m_clientSocket, reinterpret_cast<sockaddr*>(&serverAddress), sizeof(serverAddress)) == SOCKET_ERROR){
         Logger::error("Not able to connect to server");
-        closesocket(m_serverSocket);
+        closesocket(m_clientSocket);
         WSACleanup();
 
         return 0;
     }
 
     Logger::info("Succesfully connected to server");
-    connected = true;
+    m_connected = true;
     
     return true;
 }
 
-void Client::handleServer(SOCKET clientSocket)
+void Client::disconnectFromServer() {
+
+    if (m_connected.exchange(false))
+    {
+        shutdown(m_clientSocket, SD_BOTH);
+        Logger::info("Disconnected from server!");
+        m_connected = false;
+    }
+}
+
+void Client::receiveMessages()
 {
    char buffer[4096];
 
-
-    while(connected)
+    while(m_connected)
     {
 
         int bytesReceived =
             recv(
-                clientSocket,
+                m_clientSocket,
                 buffer,
                 sizeof(buffer),
                 0
@@ -179,13 +164,31 @@ void Client::handleServer(SOCKET clientSocket)
 
         std::cout
             << "\nOther: "
-            << message
-            << "\nMessage: ";
+            << message << "\n";
     }
+}
 
-    Logger::error("Disconnected from server");
 
-    connected = false;
+void Client::sendMessages() 
+{
+    std::string message;
+
+    while(m_connected && std::getline(std::cin, message))
+    {
+        if (message == "/quit") {
+            disconnectFromServer();
+            break;
+        }
+
+        send(
+            m_clientSocket,
+            message.c_str(),
+            static_cast<int>(message.size()),
+            0
+        );
+
+        std::cout << "Me: " << message << std::endl; 
+    }
 }
 
 }

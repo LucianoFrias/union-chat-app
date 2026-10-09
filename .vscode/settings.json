@@ -1,3 +1,4 @@
 {
-    "cmake.sourceDirectory": "C:/pycs/union-chat-app/server"
+    "cmake.sourceDirectory": "D:/Projects/C++/union-app/client",
+    "C_Cpp.default.compilerPath": "C:/msys64/ucrt64/bin/g++.exe"
 }
