@@ -5,6 +5,7 @@
 #include <thread>
 #include <mutex>
 #include <vector>
+#include <atomic>
 
 
 namespace Union::Server { 
@@ -18,16 +19,22 @@ public:
 
     bool start();
     void run();
+    void stop();
 
-private:
+
+public:
     bool initializeWinsock();
     bool createListeningSocket();
     bool bindAndListen();
+    bool isPortValid(int& port);
+
     void broadcast(SOCKET sender, const std::string& message);
     void handleClient(SOCKET clientSocket);
     void showRemainingNumberOfClients();
     void removeClient(SOCKET clientSocket);
-    void shutdownServer();
+
+public:
+    std::vector<SOCKET>& getClients();
 
 
 private:
@@ -35,6 +42,8 @@ private:
     std::mutex clientsMutex;
     int m_port;
     SOCKET m_listenSocket;
+
+    std::atomic<bool> running{false};
 };
 
 }

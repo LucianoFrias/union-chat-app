@@ -18,13 +18,18 @@ Server::Server(int port)
 
 Server::~Server()
 {
-    shutdownServer();
+    stop();
 }
 
 
 // Public functions
 
 bool Server::start() {
+
+    if (!isPortValid(m_port)){
+        return false;
+    }
+
     if (!initializeWinsock())
         return false;
 
@@ -41,7 +46,10 @@ bool Server::start() {
 }
 
 void Server::run(){
-    while (true)
+
+    running = true;
+
+    while (running)
     {
         showRemainingNumberOfClients();
 
@@ -75,6 +83,32 @@ void Server::run(){
     }
 }
 
+void Server::stop(){
+    running = false;
+    Logger::info("Shutting down server...");
+
+
+    std::lock_guard<std::mutex> lock(clientsMutex);
+
+
+    for(auto client : clients)
+    {
+        closesocket(client);
+    }
+
+
+    clients.clear();
+
+
+    if(m_listenSocket != INVALID_SOCKET)
+    {
+        closesocket(m_listenSocket);
+        m_listenSocket = INVALID_SOCKET;
+    }
+
+
+    WSACleanup();
+}
 
 
 // Private functions
@@ -134,11 +168,23 @@ bool Server::bindAndListen()
     return true;
 }
 
+bool Server::isPortValid(int& port){
+
+    if (port <= 0 || port > 65535){
+        Logger::error("Port out of bounds. The port should be between 0 and 65535");
+        return false;
+    }
+
+    return true;
+
+}
+
+
 void Server::handleClient(SOCKET clientSocket)
 {
     char buffer[4096];
 
-    while (true)
+    while (running)
     {
         int bytesReceived =
             recv(clientSocket,
@@ -216,30 +262,11 @@ void Server::removeClient(SOCKET clientSocket){
     );
 }
 
-void Server::shutdownServer(){
-    Logger::info("Shutting down server...");
 
+// Getters and Setters
 
-    std::lock_guard<std::mutex> lock(clientsMutex);
-
-
-    for(auto client : clients)
-    {
-        closesocket(client);
-    }
-
-
-    clients.clear();
-
-
-    if(m_listenSocket != INVALID_SOCKET)
-    {
-        closesocket(m_listenSocket);
-        m_listenSocket = INVALID_SOCKET;
-    }
-
-
-    WSACleanup();
+std::vector<SOCKET>& Server::getClients() {
+    return clients;
 }
 
 }
